@@ -1,0 +1,15 @@
+{
+	"manifest_version": 1,
+	"id": "codeMirrorMarkdownEditor",
+	"app_min_version": "2.13",
+	"version": "1.0.0",
+	"name": "My Markdown Editor",
+	"description": "",
+	"author": "",
+	"homepage_url": "",
+	"repository_url": "",
+	"keywords": [],
+	"categories": [],
+	"screenshots": [],
+	"icons": {}
+}
