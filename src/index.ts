@@ -1,8 +1,23 @@
 import joplin from 'api';
 import { ContentScriptType, SettingItemType } from 'api/types';
 
-
-
+const registerMessageListener = async (contentScriptId: string) => {
+	await joplin.contentScripts.onMessage(
+			contentScriptId,
+			
+			// Sending messages with `context.postMessage`
+			// from the content script with `contentScriptId`
+			// calls this onMessage listener:
+			async (message: any) => {
+					if (message === 'getSettings') {
+							const settingValue = await joplin.settings.value(highlightLineSettingId);
+							return {
+									highlightActiveLine: settingValue,
+							};
+					}
+			},
+	);
+};
 ////////// Register a setting //////////
 const highlightLineSettingId = 'highlight-active-line';
 const registerSettings = async () => {
@@ -33,7 +48,10 @@ joplin.plugins.register({
 	onStart: async function() {
 		await registerSettings();
 		
+		// Add this:
 		const contentScriptId = 'some-content-script-id';
+		await registerMessageListener(contentScriptId);
+
 		joplin.contentScripts.register(
 				ContentScriptType.CodeMirrorPlugin,
 				contentScriptId,
