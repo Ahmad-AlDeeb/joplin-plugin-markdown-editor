@@ -19,7 +19,8 @@ export default (context: { contentScriptId: string, postMessage: any }) => {
                 codeMirrorWrapper.addExtension(highlightActiveLine());
             }
         },
-
-        
+        assets: () => {
+            return [ { name: './style.css' } ];
+        },        
     };
 };
